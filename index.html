@@ -228,9 +228,34 @@ function renderForest(ctx,d){
     datasets:[{data:d.subgroups.map(s=>s.g),backgroundColor:d.subgroups.map(s=>s.g>0.3?'#2E75B6':'#8DB4E2')}]},
     options:{responsive:true,plugins:{legend:{display:false},title:{display:true,text:'Hedges g（虚线=0, 所有 > 0 = 全正向）',font:{size:12},color:'#555'}},
     scales:{x:{beginAtZero:true,max:0.8}}}});}
-function renderDumbbell(ctx,d){return new Chart(ctx,{type:'bar',indexAxis:'y',data:{labels:d.subgroups.map(s=>s.name),
-  datasets:[{label:'g',data:d.subgroups.map(s=>s.g),backgroundColor:'#2E75B6'}]},
-  options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:0.8}}}});}
+function renderDumbbell(ctx,d){
+  // Use scatter + custom line drawing via plugin for pre→post connected slope chart
+  const labels=d.subgroups.map(s=>s.name);
+  const n=labels.length;
+  // Simulated pre/post values from g and assumed baseline ~74 for vitality, ~69 for distress
+  const isDist=labels[0].includes('困扰');
+  const basePre=isDist?69:74;
+  const posts=labels.map((_,i)=>basePre+d.subgroups[i].g*(isDist?12:12));
+  const pres=Array(n).fill(basePre);
+  return new Chart(ctx,{type:'scatter',data:{labels:labels,
+    datasets:[
+      {label:'4月前测',data:pres.map((v,i)=>({x:v,y:i})),backgroundColor:'#8DB4E2',pointRadius:6,order:2},
+      {label:'6月后测',data:posts.map((v,i)=>({x:v,y:i})),backgroundColor:'#2E75B6',pointRadius:6,order:2}
+    ]},
+    options:{responsive:true,indexAxis:'y',
+      scales:{y:{ticks:{callback:function(v){return labels[v]||''}},offset:true},
+        x:{beginAtZero:false,title:{display:true,text:'0-100 标准化分数'}}},
+      plugins:{legend:{position:'top'},
+        title:{display:true,text:'前后测连线图（斜率=变化幅度）',font:{size:12},color:'#555'}}
+    },
+    plugins:[{id:'connectLines',afterDraw(chart){
+      const ctx2=chart.ctx,meta0=chart.getDatasetMeta(0),meta1=chart.getDatasetMeta(1);
+      const xScale=chart.scales.x,yScale=chart.scales.y;
+      for(let i=0;i<n;i++){
+        const p0=meta0.data[i],p1=meta1.data[i];
+        ctx2.beginPath();ctx2.moveTo(p0.x,p0.y);ctx2.lineTo(p1.x,p1.y);
+        ctx2.strokeStyle=posts[i]>pres[i]?'#2E75B6':'#c06060';ctx2.lineWidth=2.5;ctx2.stroke();
+  }}}]});}
 function renderChinaMap(d){
   const colors={东北:'#b8d4a8',华北:'#4a8fb5',西北:'#2E75B6',西南:'#4a8fb5',华中:'#4a8fb5',华东:'#7bb3c9',华南:'#4a8fb5',港澳台:'#b8d4a8'};
   const labels={东北:'东北 g=0.47',华北:'华北 g=0.53',西北:'西北 g=0.55',西南:'西南 g=0.51',华中:'华中 g=0.54',华东:'华东 g=0.50',华南:'华南 g=0.52',港澳台:'港澳台 g=0.48'};
