@@ -122,7 +122,7 @@ footer a{color:#2E75B6}
   <div class="chart-box" id="groupChartBox"><h3 id="groupChartTitle">效应量森林图 · 按性别</h3><canvas id="chartGroups"></canvas>
   <div class="chart-so-what" id="groupSoWhat"><strong>→ 对运营的意义：</strong>所有子组的效应量均为正向，置信区间大量重叠——增长是普适的。</div></div>
   <div id="matrixBox" style="display:none"><div class="chart-box"><h3>7维度×3指标 汇总矩阵</h3><div class="heatmap-container"><table class="heatmap" id="matrixTable"></table></div></div></div>
-  <div id="mapBox" style="display:none"><div class="chart-box"><h3>核心活力效应量 · 中国地图</h3><div id="chinaMap" style="max-width:600px;margin:0 auto"></div>
+  <div id="mapBox" style="display:none"><div class="chart-box"><h3>核心活力效应量 · 中国地图</h3><div id="chinaMap" style="width:100%;height:480px"></div>
   <div class="chart-so-what"><strong>→ 对运营的意义：</strong>七大区域核心活力效应量在 g=0.47-0.55 之间，全部正向且幅度接近。活动效果全国一致，无地域偏斜——不需要为某个地区定制方案。</div></div></div>
 </div>
 
@@ -220,7 +220,7 @@ function updateGroupChart(){
   document.getElementById('mapBox').style.display=(isMap?'block':'none');
   if(!isMap&&chinaMapChart){chinaMapChart.dispose();chinaMapChart=null;}
   if(groupChartType==='matrix'){renderMatrix();return;}
-  if(isMap){setTimeout(()=>renderChinaMap(d),100);return;}
+  if(isMap){renderChinaMap(d);return;}
   if(groupChart)groupChart.destroy();
   const ctx=document.getElementById('chartGroups').getContext('2d');
   if(groupChartType==='forest'){groupChart=renderForest(ctx,d);}
@@ -260,29 +260,29 @@ function renderDumbbell(ctx,d){
   }}}]});}
 let chinaMapChart=null;
 function renderChinaMap(d){
-  const dom=document.getElementById('chinaMap');dom.innerHTML='';dom.style.width='100%';dom.style.height='480px';
-  chinaMapChart=echarts.init(dom);
-  // Province → region mapping with effect sizes
+  const dom=document.getElementById('chinaMap');dom.innerHTML='';
+  if(chinaMapChart)chinaMapChart.dispose();
   const regionG={东北:0.47,华北:0.53,西北:0.55,西南:0.51,华中:0.54,华东:0.50,华南:0.52,港澳台:0.48};
   const provToRegion={
-    '辽宁':'东北','吉林':'东北','黑龙江':'东北',
-    '北京':'华北','天津':'华北','河北':'华北','山西':'华北','内蒙古':'华北',
-    '陕西':'西北','甘肃':'西北','青海':'西北','宁夏':'西北','新疆':'西北',
-    '四川':'西南','重庆':'西南','贵州':'西南','云南':'西南','西藏':'西南',
-    '河南':'华中','湖北':'华中','湖南':'华中',
-    '上海':'华东','江苏':'华东','浙江':'华东','安徽':'华东','福建':'华东','江西':'华东','山东':'华东',
-    '广东':'华南','广西':'华南','海南':'华南',
-    '香港':'港澳台','澳门':'港澳台','台湾':'港澳台'
+    '辽宁':'东北','吉林':'东北','黑龙江':'东北','北京':'华北','天津':'华北','河北':'华北','山西':'华北','内蒙古':'华北','陕西':'西北','甘肃':'西北','青海':'西北','宁夏':'西北','新疆':'西北','四川':'西南','重庆':'西南','贵州':'西南','云南':'西南','西藏':'西南','河南':'华中','湖北':'华中','湖南':'华中','上海':'华东','江苏':'华东','浙江':'华东','安徽':'华东','福建':'华东','江西':'华东','山东':'华东','广东':'华南','广西':'华南','海南':'华南','香港':'港澳台','澳门':'港澳台','台湾':'港澳台'
   };
-  fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json').then(r=>r.json()).then(geo=>{
-    echarts.registerMap('china',geo);
+  function initMap(){
+    chinaMapChart=echarts.init(dom);
     const data=Object.entries(provToRegion).map(([prov,reg])=>({name:prov,value:regionG[reg]}));
     chinaMapChart.setOption({
-      title:{text:'核心活力效应量（g）· 中国地图',left:'center',top:8,textStyle:{fontSize:15,color:'#333',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
-      tooltip:{trigger:'item',formatter:function(p){return p.name+'<br/>效应量 g = '+p.value.toFixed(2);}},
-      visualMap:{min:0.45,max:0.56,left:'left',bottom:20,text:['高','低'],inRange:{color:['#b8d4a8','#7bb3c9','#4a8fb5','#2E75B6']},textStyle:{color:'#555',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
-      series:[{type:'map',map:'china',data:data,label:{show:true,fontSize:9,color:'#333',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'},itemStyle:{borderColor:'#fff',borderWidth:1},emphasis:{label:{fontSize:12,fontWeight:'bold'},itemStyle:{areaColor:'#ffc285'}}}]
+      title:{text:'核心活力效应量（g）· 中国地图',left:'center',top:6,textStyle:{fontSize:14,color:'#333',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
+      tooltip:{trigger:'item',formatter:function(p){return p.name+'<br/>效应量 g = '+(p.value||'?').toString();}},
+      visualMap:{min:0.45,max:0.56,left:'left',bottom:16,text:['g高','g低'],inRange:{color:['#b8d4a8','#7bb3c9','#4a8fb5','#2E75B6']},textStyle:{color:'#555',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
+      series:[{type:'map',map:'china',data:data,label:{show:true,fontSize:8,color:'#444',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'},itemStyle:{borderColor:'#fff',borderWidth:1},emphasis:{label:{fontSize:11,fontWeight:'bold'},itemStyle:{areaColor:'#ffc285'}}}]
     });
+  }
+  fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json').then(r=>r.json()).then(geo=>{
+    echarts.registerMap('china',geo);initMap();
+  }).catch(()=>{
+    // Fallback: use built-in simplified map
+    fetch('https://cdn.jsdelivr.net/npm/echarts@5.5.0/map/json/china.json').then(r=>r.json()).then(geo2=>{
+      echarts.registerMap('china',geo2);initMap();
+    }).catch(()=>{dom.innerHTML='<p style=\"text-align:center;padding:40px;color:#999\">地图加载中，请刷新页面重试</p>';});
   });
   window.addEventListener('resize',()=>chinaMapChart&&chinaMapChart.resize());
 }
