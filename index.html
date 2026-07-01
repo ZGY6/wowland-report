@@ -24,20 +24,31 @@ a{color:#2E75B6}
 .hero .dl-btn{display:inline-block;margin-top:18px;padding:10px 26px;background:#fff;color:#2E75B6;border-radius:20px;font-weight:600;font-size:14px;text-decoration:none;transition:.2s}
 .hero .dl-btn:hover{background:#e8f0fa}
 
+/* Progress bar */
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#2E75B6,#5B9BD5);z-index:100;transition:width 0.1s}
+
 /* Layout */
-.page{display:flex;max-width:1200px;margin:0 auto}
-.sidebar{width:180px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;background:#fff;border-right:1px solid #e0e0e0;padding:20px 12px;z-index:5}
-.sidebar a{display:block;padding:8px 12px;font-size:13px;color:#666;text-decoration:none;border-radius:6px;margin-bottom:2px;transition:.15s}
-.sidebar a:hover,.sidebar a.active{background:#EBF0F7;color:#2E75B6;font-weight:600}
-.main{flex:1;min-width:0;padding:32px 6% 60px}
+.page{display:flex;max-width:1300px;margin:0 auto}
+.sidebar{width:170px;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto;background:#1a2a3a;padding:24px 14px;z-index:5}
+.sidebar .nav-title{color:rgba(255,255,255,.5);font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;padding:0 8px}
+.sidebar a{display:flex;align-items:center;gap:8px;padding:9px 10px;font-size:12.5px;color:rgba(255,255,255,.65);text-decoration:none;border-radius:8px;margin-bottom:1px;transition:.2s}
+.sidebar a .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.sidebar a:hover,.sidebar a.active{background:rgba(255,255,255,.1);color:#fff}
+.sidebar a.active .dot{background:#5B9BD5;box-shadow:0 0 6px rgba(91,155,213,.6)}
+.main{flex:1;min-width:0}
 
 /* Sections */
-.sec{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid #eee}
-.sec:last-child{border-bottom:none}
-.sec h2{font-size:22px;color:#1a3a5c;margin-bottom:16px;padding-left:12px;border-left:4px solid #2E75B6}
-.sec h3{font-size:16px;color:#2E75B6;margin:16px 0 8px}
-.sec p{font-size:14px;color:#444;margin-bottom:10px}
-.sec .note{font-size:13px;color:#666;font-style:italic;margin-bottom:8px}
+.sec{padding:56px 8% 48px;position:relative}
+.sec:nth-child(odd){background:#f8f9fb}
+.sec:nth-child(even){background:#fff}
+.sec:first-of-type{background:#fff;padding-top:40px}
+.sec-header{margin-bottom:32px}
+.sec-num{font-size:72px;font-weight:900;color:rgba(46,117,182,.08);position:absolute;left:5%;top:30px;line-height:1;pointer-events:none}
+.sec h2{font-size:26px;color:#1a3a5c;margin-bottom:6px;position:relative;z-index:1}
+.sec h3{font-size:17px;color:#2E75B6;margin:20px 0 8px}
+.sec .subtitle{font-size:14px;color:#888;margin-bottom:16px}
+.sec p{font-size:14.5px;color:#444;margin-bottom:10px;max-width:780px}
+.sec .note{font-size:13px;color:#888;margin-bottom:8px}
 
 /* Charts */
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -76,6 +87,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </style>
 </head>
 <body>
+<div id="progress-bar"></div>
 
 <!-- ====== HERO ====== -->
 <div class="hero">
@@ -99,24 +111,25 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 <!-- ====== LAYOUT ====== -->
 <div class="page">
 <nav class="sidebar" id="sidebar">
-  <a href="#s01" class="active">01 · 概览</a>
-  <a href="#s02">02 · 研究背景</a>
-  <a href="#s03">03 · 描述统计</a>
-  <a href="#s04">04 · 信度与效度</a>
-  <a href="#s05">05 · 前后测差异</a>
-  <a href="#s06">06 · 相关分析</a>
-  <a href="#s07">07 · 群体差异</a>
-  <a href="#s08">08 · 题项级分析</a>
-  <a href="#s09">09 · 参与深度</a>
-  <a href="#s10">10 · 风险与局限</a>
-  <a href="#s11">11 · 行动建议</a>
-  <a href="#s12">12 · 核心洞察</a>
+  <div class="nav-title">目 录</div>
+  <a href="#s01" class="active"><span class="dot"></span>概览</a>
+  <a href="#s02"><span class="dot"></span>研究背景</a>
+  <a href="#s03"><span class="dot"></span>描述统计</a>
+  <a href="#s04"><span class="dot"></span>信度与效度</a>
+  <a href="#s05"><span class="dot"></span>前后测差异</a>
+  <a href="#s06"><span class="dot"></span>相关分析</a>
+  <a href="#s07"><span class="dot"></span>群体差异</a>
+  <a href="#s08"><span class="dot"></span>题项级分析</a>
+  <a href="#s09"><span class="dot"></span>参与深度</a>
+  <a href="#s10"><span class="dot"></span>风险与局限</a>
+  <a href="#s11"><span class="dot"></span>行动建议</a>
+  <a href="#s12"><span class="dot"></span>核心洞察</a>
 </nav>
 
 <main class="main">
 
 <!-- 01 概览 -->
-<div class="sec" id="s01"><h2>01 · 概览</h2>
+<div class="sec" id="s01"><div class="sec-num">01</div><h2>概览</h2>
 <p>本报告评估了抖音校园 WowLand「敢聊行动」（2026年4–6月）对学生成长状态的影响。基于4月前测（2,539人）和6月后测（2,092人）两波匿名问卷数据，追踪了心理健康、成长活力和成长型思维三个核心指标的变化。</p>
 <p><strong>核心发现：</strong>成长活力综合指数提升了 7.9 分（g = 0.526），社交突破维度涨幅最大（+9.6分），直接回应了活动"走出舒适圈、建立真实连接"的定位。这个涨幅不挑人——六个人口学维度、全部交互不显著。心理困扰和成长型思维基本没变。</p>
 <p>触达方面，83.2%的学生听说过或看到过活动，光是"被看到"就产生了 8.4 分的成长活力差距。参与深度呈现清晰梯度：0项（73.8）→ 1-2项（83.1）→ 3-5项（87.0）。</p>
@@ -124,14 +137,14 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 02 研究背景 -->
-<div class="sec" id="s02"><h2>02 · 研究背景与设计</h2>
+<div class="sec" id="s02"><div class="sec-num">02</div><h2>研究背景与设计</h2>
 <p>当代大学生在高度数字化的环境中成长，一方面渴望被看见、被尊重、产生真实链接，另一方面却因竞争压力、单一评价体系和社交媒体的影响，防备心增强、深度社交能力下降。基于此，抖音校园 WowLand 于 2026 年 5 月发起「敢聊行动」——一场无标准、无评判的小型社交实验。</p>
 <p>活动的理论逻辑可概括为<strong>"撞→见→觉→固"四阶段模型</strong>（项目团队与人大教授在2026年3月工作讨论中提出）：学生在活动中先被"撞"——遇到一个拨动心弦的人或瞬间；然后"见"——在与他人对话中反观自身；继而"觉"——觉察后的 mindset 提升催生行动意愿；最终在反复实践中"固"化新的行为和自我叙事。</p>
 <p><strong>研究设计：</strong>重复横断面设计，前测4月（N=2,539, 150校/53城），后测6月（N=2,092, 146校/69城）。两波数据未包含同一被试唯一ID，结论为趋势判断。量表包括 GHQ-12（心理困扰）、VFI改编版（成长活力，由抖音团队在多份候选量表中对比选定）、成长型思维量表。</p>
 </div>
 
 <!-- 03 描述统计 -->
-<div class="sec" id="s03"><h2>03 · 描述统计</h2>
+<div class="sec" id="s03"><div class="sec-num">03</div><h2>描述统计</h2>
 <p>两波样本合计 4,631 人，覆盖七个维度：性别、年级、沿海/内陆、城市层级、学校层级、本专科、区域。各维度详细分布及编码方式见下表。</p>
 <table class="data-table">
 <tr><th>变量</th><th>类别</th><th>前测 n (%)</th><th>后测 n (%)</th><th>核心活力(前/后)</th></tr>
@@ -158,7 +171,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 04 信度与效度 -->
-<div class="sec" id="s04"><h2>04 · 信度与效度分析</h2>
+<div class="sec" id="s04"><div class="sec-num">04</div><h2>信度与效度分析</h2>
 <p>三个量表的 Cronbach α 如下。核心成长活力（12题，不含心理保护）信度优异（α > .93），显著优于包含心理保护的完整VFI（α = .84/.89）。成长型思维后测信度偏低（α = .588），需谨慎解读。</p>
 <table class="data-table">
 <tr><th>量表</th><th>题数</th><th>4月 α</th><th>6月 α</th><th>评价</th></tr>
@@ -172,7 +185,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 05 前后测差异 -->
-<div class="sec" id="s05"><h2>05 · 前后测差异分析</h2>
+<div class="sec" id="s05"><div class="sec-num">05</div><h2>前后测差异分析</h2>
 <div class="grid2">
 <div class="chart-box"><h4>核心指标前后测对比</h4><canvas id="chartCore"></canvas>
 <div class="chart-so-what"><strong>→</strong> 三指标里只有成长活力实打实涨了。困扰和思维没变不是失败，帮活动找准了定位：成长助推器，不是心理疗愈工具。</div></div>
@@ -188,7 +201,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 06 相关分析 -->
-<div class="sec" id="s06"><h2>06 · 相关分析</h2>
+<div class="sec" id="s06"><div class="sec-num">06</div><h2>相关分析</h2>
 <div class="grid2">
 <div class="chart-box"><h4>结果变量间相关矩阵（n=2,092）</h4>
 <table class="data-table" id="corrTable"></table>
@@ -199,7 +212,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 07 群体差异 -->
-<div class="sec" id="s07"><h2>07 · 群体差异分析</h2>
+<div class="sec" id="s07"><div class="sec-num">07</div><h2>群体差异分析</h2>
 <div class="filter-bar">
   <span>维度：</span><select id="demoSelect" onchange="updateGroupChart()">
     <option value="gender">性别</option><option value="coastal">沿海/内陆</option><option value="grade">年级</option><option value="school">学校层级</option><option value="city">城市层级</option><option value="edu">本专科</option><option value="region">区域</option></select>
@@ -215,14 +228,14 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 08 题项级分析 -->
-<div class="sec" id="s08"><h2>08 · 题项级分析</h2>
+<div class="sec" id="s08"><div class="sec-num">08</div><h2>题项级分析</h2>
 <div class="filter-bar"><button class="sel" onclick="filterItems('all');return false">全部</button><button onclick="filterItems('社交');return false">社交</button><button onclick="filterItems('认知');return false">认知</button><button onclick="filterItems('自我');return false">自我</button><button onclick="filterItems('职业');return false">职业</button><button onclick="filterItems('保护');return false">保护</button></div>
 <div class="chart-box"><canvas id="chartItems"></canvas>
 <div class="chart-so-what"><strong>→</strong> "喜欢和共同目标的人在一起"（g=0.483）效应量最大。活动的核心机制是建立社交连接，再通过社交带动认知和自我提升。</div></div>
 </div>
 
 <!-- 09 参与深度 -->
-<div class="sec" id="s09"><h2>09 · 参与深度</h2>
+<div class="sec" id="s09"><div class="sec-num">09</div><h2>参与深度</h2>
 <div class="grid2">
 <div class="chart-box"><h4>参与活动数 × 成长活力 &amp; 困扰</h4><canvas id="chartDose"></canvas>
 <div class="chart-so-what"><strong>→ 首参效应：</strong>从"仅看到"（73.8）到"参加1项"（82.7），跳升 8.9 分——降低首次参与门槛是 ROI 最高的动作。</div></div>
@@ -232,7 +245,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 10 风险与局限 -->
-<div class="sec" id="s10"><h2>10 · 风险与局限</h2>
+<div class="sec" id="s10"><div class="sec-num">10</div><h2>风险与局限</h2>
 <h3>优先干预群体</h3>
 <table class="data-table">
 <tr><th>群体</th><th>识别标准</th><th>核心发现</th><th>建议方向</th></tr>
@@ -246,7 +259,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 11 行动建议 -->
-<div class="sec" id="s11"><h2>11 · 行动建议</h2>
+<div class="sec" id="s11"><div class="sec-num">11</div><h2>行动建议</h2>
 <div class="action-grid">
 <div class="action-card"><h4>1. 把社交突破做成核心资产</h4><p>社交突破效应量最大（g=0.520），对参与深度最敏感。<span class="tag">核心KPI</span><span class="tag">社交优先</span></p></div>
 <div class="action-card"><h4>2. 降低首次参与门槛</h4><p>从"看到"到"做一次"跳升8.9分，是最大单步增益。<span class="tag">首参效应</span><span class="tag">低门槛</span></p></div>
@@ -258,7 +271,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 </div>
 
 <!-- 12 核心洞察 -->
-<div class="sec" id="s12"><h2>12 · 核心洞察</h2>
+<div class="sec" id="s12"><div class="sec-num">12</div><h2>核心洞察</h2>
 <p><strong>洞察一：社交突破不是副产品，是最核心的产品资产。</strong>在所有指标里，社交突破效应量最大（g=0.520），对参与深度最敏感。一个简单的问题——"参加活动之后，你愿意主动联系的人变多了吗？"——可能比任何量表分数都更能衡量真实效果。</p>
 <p><strong>洞察二：敢聊行动真正的创新不是活动设计，是创造了一套"许可结构"。</strong>看到过的学生比没看到过的成长活力高 8.4 分——比前后测总变化还大。敢聊行动的存在本身构成了一种"许可"：你可以跟陌生人说话、你可以花两小时做一件没有功利目的的事、你可以对自己诚实。</p>
 <p><strong>洞察三：平均数几乎没变，但成长活力在涨——活动效果高度聚焦。</strong>第一批被吸引来的是原本成长动力就比较强的学生。当触达率达到83%时，剩下的17%不是"再推一下就能触达"的人——需要完全不同的入口。不是"邀请你来"，而是"我们来找你"。</p>
@@ -271,9 +284,9 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;border-top:1px s
 
 <script>
 Chart.defaults.font.family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif";Chart.defaults.font.size=12;
-// ====== Scroll highlight ======
-const secs=document.querySelectorAll('.sec');const links=document.querySelectorAll('.sidebar a');
-window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});links.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+cur);});});
+// ====== Scroll highlight + progress ======
+const secs=document.querySelectorAll('.sec');const links=document.querySelectorAll('.sidebar a');const pbar=document.getElementById('progress-bar');
+window.addEventListener('scroll',()=>{let cur='';const sh=document.documentElement.scrollHeight- window.innerHeight;const pct=sh>0?Math.round((window.scrollY/sh)*100):0;pbar.style.width=pct+'%';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-120)cur=s.id});links.forEach(l=>{l.classList.toggle('active',l.getAttribute('href')==='#'+cur);});});
 links.forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();document.querySelector(l.getAttribute('href')).scrollIntoView({behavior:'smooth'});});});
 
 // ====== Charts ======
