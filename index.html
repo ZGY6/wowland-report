@@ -51,9 +51,9 @@ a{color:#1565c0;text-decoration:none}
 .detail .note{font-size:13px;color:#999}
 
 /* Team page */
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
-.team-person{text-align:center}
-.team-person img{width:140px;height:175px;border-radius:12px;object-fit:cover;margin-bottom:14px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.team-person{background:#fff;border-radius:12px;padding:28px 22px;text-align:center;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 2px 4px rgba(0,0,0,.04),0 8px 16px rgba(0,0,0,.03);transition:.3s}
+.team-person:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(21,101,192,.15),0 4px 8px rgba(0,0,0,.06),0 12px 24px rgba(21,101,192,.08)}
+.team-person img{width:160px;height:200px;border-radius:12px;object-fit:cover;margin-bottom:16px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
 .team-person .pname{font-size:17px;font-weight:700;color:#1a3a5c}.team-person .prole{font-size:13px;color:#1565c0;margin:4px 0}
 .team-person .pdesc{font-size:13px;color:#666;line-height:1.7;margin-top:10px;text-align:left}
 
@@ -113,13 +113,14 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
 <div class="page" id="page-team"><div class="detail">
   <span class="back" onclick="openPage('home')">← 返回目录</span>
   <div class="sec-label">研究团队</div><h2>研究团队</h2>
+  <p style="font-size:14px;color:#666;margin-bottom:28px">本报告由抖音校园委托，中国人民大学劳动人事学院与心理学系共同承担研究设计与数据分析。</p>
   <div class="team-grid">
-    <div class="team-person"><img src="prof_sun.png" alt="孙健敏"><div class="pname">孙健敏 教授</div><div class="prole">中国人民大学劳动人事学院</div>
-    <p class="pdesc">二级教授、博士生导师，中国心理学会会士，国际应用心理学会（IAAP）会士。北师大心理学博士。华为基本法起草人之一，"华为基本法六君子"之一。中国社会心理学会副会长，教育部马工程重点教材《组织行为学》首席专家。在国内外权威期刊发表论文200余篇，出版著作50余部。长期为百余家企业提供管理咨询。本次项目负责人，统筹研究设计与报告框架。</p></div>
-    <div class="team-person"><img src="prof_wei.png" alt="韦庆旺"><div class="pname">韦庆旺 副教授</div><div class="prole">中国人民大学心理学系</div>
-    <p class="pdesc">浙江大学教育学博士，中山大学心理学硕士。中国社会心理学会理事、管理心理学专委会副主任，中国心理学会文化心理学专委会委员兼秘书，《中国社会心理学评论》特约主编。研究方向：社会与文化心理学、中庸心理、文化认同与文化变迁。主持多项国家社科基金项目。本次项目中负责量表设计与数据分析把关。</p></div>
-    <div class="team-person"><img src="prof_li.png" alt="李英武"><div class="pname">李英武 副教授</div><div class="prole">中国人民大学心理学系</div>
-    <p class="pdesc">北京师范大学心理学博士，清华大学公共领导力研究中心博士后。中国心理学会心理测量专业委员会委员、员工心理促进工作委员会（EAP）委员。研究方向：心理测量与人事选拔、职业健康心理学、组织中的员工心理健康。著有《心理测量学》《职业健康心理学》。本次项目中负责问卷编制与测量质量控制。</p></div>
+    <div class="team-person"><img src="prof_sun.png" alt="孙健敏"><div class="pname">孙健敏 教授</div><div class="prole">中国人民大学劳动人事学院</div><div class="prole" style="font-size:11px;color:#999">sunjianmin@ruc.edu.cn</div>
+    <p class="pdesc">二级教授、博士生导师。中国心理学会会士，国际应用心理学会（IAAP）会士，美国工业与组织心理学会（SIOP）会士。北师大心理学博士。华为基本法起草人之一。中国社会心理学会副会长，教育部马工程重点教材《组织行为学》首席专家。在国内外权威期刊发表论文200余篇，出版著作50余部。</p></div>
+    <div class="team-person"><img src="prof_wei.png" alt="韦庆旺"><div class="pname">韦庆旺 副教授</div><div class="prole">中国人民大学心理学系</div><div class="prole" style="font-size:11px;color:#999">weiqingwang@ruc.edu.cn</div>
+    <p class="pdesc">浙江大学教育学博士，中山大学心理学硕士。中国社会心理学会理事、管理心理学专委会副主任。中国心理学会文化心理学专委会委员兼秘书。《中国社会心理学评论》特约主编。研究方向：社会与文化心理学、中庸心理、文化认同与文化变迁。主持多项国家社科基金项目。</p></div>
+    <div class="team-person"><img src="prof_li.png" alt="李英武"><div class="pname">李英武 副教授</div><div class="prole">中国人民大学心理学系</div><div class="prole" style="font-size:11px;color:#999">liyingwu@ruc.edu.cn</div>
+    <p class="pdesc">北京师范大学心理学博士，清华大学公共领导力研究中心博士后。中国心理学会心理测量专业委员会委员、员工心理促进工作委员会（EAP）委员。中国健康管理协会公职人员心理健康管理分会常务理事。研究方向：心理测量与人事选拔、职业健康心理学。著有《心理测量学》《职业健康心理学》。</p></div>
   </div>
 </div></div>
 
