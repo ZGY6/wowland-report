@@ -25,6 +25,20 @@ a{color:#1565c0;text-decoration:none}
 .home{padding:48px 6% 60px;max-width:1100px;margin:0 auto}
 .home h2{font-size:24px;color:#1a3a5c;text-align:center;margin-bottom:6px}
 .home .hsub{font-size:13px;color:#999;text-align:center;margin-bottom:36px}
+/* Hero number dashboard */
+.hero-dash{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:900px;margin:0 auto 32px}
+.hero-dash .hcard{background:#fff;border-radius:10px;padding:20px 14px;text-align:center;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.06),0 8px 16px rgba(0,0,0,.04)}
+.hero-dash .hcard .hnum{font-size:36px;font-weight:900;line-height:1.1}.hcard .hnum.g{color:#2a9d5c}.hcard .hnum.b{color:#1565c0}.hcard .hnum.o{color:#e07b39}
+.hero-dash .hcard .hlbl{font-size:12px;color:#777;margin-top:4px}
+/* Back to top */
+.btt{position:fixed;bottom:24px;right:24px;width:44px;height:44px;background:#1565c0;color:#fff;border:none;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(21,101,192,.3);z-index:50;display:none;transition:.2s}
+.btt:hover{background:#0d47a1;transform:translateY(-2px)}
+/* Download CTA */
+.dl-cta{max-width:500px;margin:40px auto 0;text-align:center;background:linear-gradient(135deg,#f8f9fb,#fff);border-radius:12px;padding:28px;border:2px dashed #1565c0}
+.dl-cta h3{font-size:18px;color:#1a3a5c;margin-bottom:6px}
+.dl-cta p{font-size:13px;color:#888;margin-bottom:16px}
+.dl-cta .dl-btn-big{display:inline-block;padding:12px 36px;background:#1565c0;color:#fff;border-radius:22px;font-size:14px;font-weight:700;text-decoration:none;transition:.2s}
+.dl-cta .dl-btn-big:hover{background:#0d47a1;transform:translateY(-1px);box-shadow:0 4px 12px rgba(21,101,192,.3)}
 .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .card{animation:cardIn .5s both;background:#fff;border-radius:10px;padding:22px 18px;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.06),0 6px 16px rgba(0,0,0,.04);cursor:pointer;transition:all .3s;text-align:center;border:2px solid transparent}
 .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.2s}.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}.card:nth-child(7){animation-delay:.35s}.card:nth-child(8){animation-delay:.4s}.card:nth-child(9){animation-delay:.45s}.card:nth-child(10){animation-delay:.5s}.card:nth-child(11){animation-delay:.55s}.card:nth-child(12){animation-delay:.6s}.card:nth-child(13){animation-delay:.65s}
@@ -90,8 +104,14 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
 <div class="page active" id="page-home"><div class="home">
   <h2>敢聊行动 · 效果评估报告</h2>
   <p class="hsub">2026年4-6月 · N=4,631 · 150+所高校 · 中国人民大学劳动人事学院 &amp; 心理学系</p>
-  <p style="text-align:center;font-size:15px;color:#e07b39;font-weight:600;margin-bottom:16px">✨ 奇遇你的 Wow 时刻 —— 一场无标准、无评判的小型社交实验</p>
-  <div class="callout" style="text-align:center;border-left:4px solid;border-image:linear-gradient(180deg,#1565c0,#ffb74d) 1">核心发现：敢聊活动让学生的<strong>核心成长活力提升了 7.9 分</strong>（g = 0.526），效果约为同类校园干预的 <strong>2-3 倍</strong>。涨幅不挑人——<strong>所有人群都在涨</strong>。心理困扰和成长型思维基本没变——活动应定位为"成长助推器"而非"心理疗愈工具"。</div>
+  <p style="text-align:center;font-size:15px;color:#e07b39;font-weight:600;margin-bottom:8px">✨ 奇遇你的 Wow 时刻 —— 一场无标准、无评判的小型社交实验</p>
+  <div class="callout" style="text-align:center;border-left:4px solid;border-image:linear-gradient(180deg,#1565c0,#ffb74d) 1;margin-bottom:28px">核心发现：敢聊活动让学生的<strong>核心成长活力提升了 7.9 分</strong>（g = 0.526），效果约为同类校园干预的 <strong>2-3 倍</strong>。涨幅不挑人——<strong>所有人群都在涨</strong>。心理困扰和成长型思维基本没变——活动应定位为"成长助推器"而非"心理疗愈工具"。</div>
+  <div class="hero-dash">
+    <div class="hcard"><div class="hnum g">+7.9</div><div class="hlbl">核心成长活力提升</div></div>
+    <div class="hcard"><div class="hnum b">83.2%</div><div class="hlbl">活动触达率</div></div>
+    <div class="hcard"><div class="hnum o">2-3×</div><div class="hlbl">同类干预效应量</div></div>
+    <div class="hcard"><div class="hnum b">✅</div><div class="hlbl">所有人群普适</div></div>
+  </div>
   <div class="card-grid" style="margin-top:28px">
     <div class="card featured" onclick="openPage('overview')"><div class="big">+7.9<span style="font-size:18px"> 分</span></div><div><div class="idx">01</div><h3>概览与核心发现</h3><div class="sub">执行摘要 · 核心数据 · 一句话结论</div></div></div>
     <div class="card" onclick="openPage('bg')"><div class="idx">02</div><h3>研究背景</h3><div class="sub">💥 撞→👁 见→💡 觉→🔒 固</div></div>
@@ -107,7 +127,10 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
     <div class="card" onclick="openPage('insights')"><div class="idx">12</div><h3>核心洞察</h3><div class="sub">💎 社交突破 · 许可结构 · 17%</div></div>
     <div class="card" onclick="openPage('team')"><div class="idx">团队</div><h3>研究团队</h3><div class="sub">👨‍🏫 孙健敏 · 韦庆旺 · 李英武</div></div>
   </div>
+  <div class="dl-cta"><h3>📥 下载完整报告</h3><p>包含全部12章正文、15张数据表格、5张图表、附录A1-A5</p><a class="dl-btn-big" href="WowLand调研完整报告_终版.docx" download>下载 docx 完整版</a></div>
 </div></div>
+
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">↑</button>
 
 <!-- ====== TEAM PAGE ====== -->
 <div class="page" id="page-team"><div class="detail">
