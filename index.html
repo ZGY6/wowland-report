@@ -121,6 +121,8 @@ footer a{color:#2E75B6}
   <div class="chart-box" id="groupChartBox"><h3 id="groupChartTitle">效应量森林图 · 按性别</h3><canvas id="chartGroups"></canvas>
   <div class="chart-so-what" id="groupSoWhat"><strong>→ 对运营的意义：</strong>所有子组的效应量均为正向，置信区间大量重叠——增长是普适的。</div></div>
   <div id="matrixBox" style="display:none"><div class="chart-box"><h3>7维度×3指标 汇总矩阵</h3><div class="heatmap-container"><table class="heatmap" id="matrixTable"></table></div></div></div>
+  <div id="mapBox" style="display:none"><div class="chart-box"><h3>核心活力效应量 · 中国地图</h3><div id="chinaMap" style="max-width:600px;margin:0 auto"></div>
+  <div class="chart-so-what"><strong>→ 对运营的意义：</strong>七大区域核心活力效应量在 g=0.47-0.55 之间，全部正向且幅度接近。活动效果全国一致，无地域偏斜——不需要为某个地区定制方案。</div></div></div>
 </div>
 
 <!-- ====== 题项级分析 ====== -->
@@ -211,9 +213,12 @@ function setGroupChartType(t){groupChartType=t;document.querySelectorAll('#group
 function updateGroupChart(){
   const k=document.getElementById('demoSelect').value,d=groupData[k];
   document.getElementById('groupChartTitle').textContent=(groupChartType==='forest'?'效应量森林图':'哑铃图：前后变化')+' · '+d.label;
-  document.getElementById('groupChartBox').style.display=(groupChartType==='matrix'?'none':'block');
-  document.getElementById('matrixBox').style.display=(groupChartType==='matrix'?'block':'none');
+  const isMap=(k==='region');
+  document.getElementById('groupChartBox').style.display=(groupChartType==='matrix'||isMap?'none':'block');
+  document.getElementById('matrixBox').style.display=(groupChartType==='matrix'&&!isMap?'block':'none');
+  document.getElementById('mapBox').style.display=(isMap?'block':'none');
   if(groupChartType==='matrix'){renderMatrix();return;}
+  if(isMap){renderChinaMap(d);return;}
   if(groupChart)groupChart.destroy();
   const ctx=document.getElementById('chartGroups').getContext('2d');
   if(groupChartType==='forest'){groupChart=renderForest(ctx,d);}
@@ -226,6 +231,30 @@ function renderForest(ctx,d){
 function renderDumbbell(ctx,d){return new Chart(ctx,{type:'bar',indexAxis:'y',data:{labels:d.subgroups.map(s=>s.name),
   datasets:[{label:'g',data:d.subgroups.map(s=>s.g),backgroundColor:'#2E75B6'}]},
   options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:0.8}}}});}
+function renderChinaMap(d){
+  const colors={东北:'#b8d4a8',华北:'#4a8fb5',西北:'#2E75B6',西南:'#4a8fb5',华中:'#4a8fb5',华东:'#7bb3c9',华南:'#4a8fb5',港澳台:'#b8d4a8'};
+  const labels={东北:'东北 g=0.47',华北:'华北 g=0.53',西北:'西北 g=0.55',西南:'西南 g=0.51',华中:'华中 g=0.54',华东:'华东 g=0.50',华南:'华南 g=0.52',港澳台:'港澳台 g=0.48'};
+  const paths={
+    东北:'M850,80 L980,80 L980,190 L850,190Z',
+    华北:'M720,95 L840,95 L840,210 L720,210Z',
+    西北:'M400,95 L710,95 L710,250 L400,250Z',
+    西南:'M300,270 L540,270 L540,430 L300,430Z',
+    华中:'M550,240 L710,240 L710,340 L550,340Z',
+    华东:'M720,220 L880,220 L880,390 L720,390Z',
+    华南:'M550,350 L720,350 L720,490 L550,490Z',
+    港澳台:'M580,500 L650,500 L650,540 L580,540Z'
+  };
+  let svg='<svg viewBox=\"250 40 750 560\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:600px\">';
+  for(const[name,p] of Object.entries(paths)){
+    svg+=`<path d=\"${p}\" fill=\"${colors[name]}\" stroke=\"#fff\" stroke-width=\"2.5\" rx=\"4\"/>`;
+    const nums=p.match(/\d+/g).map(Number);
+    const cx=(nums[0]+nums[2])/2,cy=(nums[1]+nums[3])/2;
+    svg+=`<text x=\"${cx}\" y=\"${cy-5}\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"600\" fill=\"#fff\">${name}</text>`;
+    svg+=`<text x=\"${cx}\" y=\"${cy+12}\" text-anchor=\"middle\" font-size=\"10\" fill=\"rgba(255,255,255,0.85)\">${labels[name].split(' ')[1]}</text>`;
+  }
+  svg+='<text x=\"500\" y=\"570\" text-anchor=\"middle\" font-size=\"11\" fill=\"#999\">颜色越深 = 效应量越大（全部正向 g>0.45）</text></svg>';
+  document.getElementById('chinaMap').innerHTML=svg;
+}
 function renderMatrix(){
   const dims=['性别','沿海/内陆','城市层级','学校层级','年级','本专科','区域'];
   const s1=['✅ 一致','✅ 一致','⚠ 边缘','✅ 一致','✅ 一致','✅ 一致','✅ 一致'];
