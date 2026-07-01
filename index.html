@@ -100,7 +100,6 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
   <div class="callout" style="text-align:center">核心发现：敢聊活动让学生的<strong>核心成长活力提升了 7.9 分</strong>（g = 0.526），效果约为同类校园干预的 <strong>2-3 倍</strong>。涨幅不挑人——<strong>所有人群都在涨</strong>。心理困扰和成长型思维基本没变——活动应定位为"成长助推器"而非"心理疗愈工具"。</div>
   <div class="card-grid" style="margin-top:28px">
     <div class="card featured" onclick="openPage('overview')"><div class="big">+7.9<span style="font-size:18px"> 分</span></div><div><div class="idx">01</div><h3>概览与核心发现</h3><div class="sub">执行摘要 · 核心数据 · 一句话结论</div></div></div>
-    <div class="card" onclick="openPage('team')"><div class="idx">团队</div><h3>研究团队</h3><div class="sub">孙健敏 · 韦庆旺 · 李英武</div></div>
     <div class="card" onclick="openPage('bg')"><div class="idx">02</div><h3>研究背景</h3><div class="sub">撞→见→觉→固 · 研究设计</div></div>
     <div class="card" onclick="openPage('desc')"><div class="idx">03</div><h3>描述统计</h3><div class="sub">7维度人口学分布</div></div>
     <div class="card" onclick="openPage('reliability')"><div class="idx">04</div><h3>信度与效度</h3><div class="sub">VFI拆分 · α=.931</div></div>
@@ -112,6 +111,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
     <div class="card" onclick="openPage('risk')"><div class="idx">10</div><h3>风险与局限</h3><div class="sub">优先群体 · 方法边界</div></div>
     <div class="card" onclick="openPage('actions')"><div class="idx">11</div><h3>行动建议</h3><div class="sub">6条具体策略</div></div>
     <div class="card" onclick="openPage('insights')"><div class="idx">12</div><h3>核心洞察</h3><div class="sub">社交突破 · 许可结构 · 17%</div></div>
+    <div class="card" onclick="openPage('team')"><div class="idx">团队</div><h3>研究团队</h3><div class="sub">孙健敏 · 韦庆旺 · 李英武</div></div>
   </div>
 </div></div>
 
@@ -230,7 +230,7 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
 
 <script>
 Chart.defaults.font.family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif";Chart.defaults.font.size=12;
-const pageOrder=['home','overview','team','bg','desc','reliability','pretest','corr','groups','items','participation','risk','actions','insights'];
+const pageOrder=['home','overview','bg','desc','reliability','pretest','corr','groups','items','participation','risk','actions','insights','team'];
 const detailPages=pageOrder.filter(p=>p!=='home');
 function openPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -251,7 +251,7 @@ function addNavRow(id){
   const page=document.getElementById('page-'+id);
   let existing=page.querySelector('.nav-row');if(existing)existing.remove();
   const prev=idx>0?detailPages[idx-1]:null;const next=idx<detailPages.length-1?detailPages[idx+1]:null;
-  const pageNames={overview:'概览',team:'研究团队',bg:'研究背景',desc:'描述统计',reliability:'信度与效度',pretest:'前后测差异',corr:'相关分析',groups:'群体差异',items:'题项分析',participation:'参与深度',risk:'风险与局限',actions:'行动建议',insights:'核心洞察'};
+  const pageNames={overview:'概览',bg:'研究背景',desc:'描述统计',reliability:'信度与效度',pretest:'前后测差异',corr:'相关分析',groups:'群体差异',items:'题项分析',participation:'参与深度',risk:'风险与局限',actions:'行动建议',insights:'核心洞察',team:'研究团队'};
   const row=document.createElement('div');row.className='nav-row';
   row.innerHTML=(prev?`<button onclick="openPage('${prev}')">← ${pageNames[prev]}</button>`:'<span></span>')+(next?`<button onclick="openPage('${next}')">${pageNames[next]} →</button>`:'<span></span>');
   page.appendChild(row);
