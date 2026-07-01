@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WowLand 敢聊行动 · 互动报告</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#f5f6f8;color:#222;line-height:1.6}
@@ -258,33 +257,31 @@ function renderDumbbell(ctx,d){
         ctx2.beginPath();ctx2.moveTo(p0.x,p0.y);ctx2.lineTo(p1.x,p1.y);
         ctx2.strokeStyle=posts[i]>pres[i]?'#2E75B6':'#c06060';ctx2.lineWidth=2.5;ctx2.stroke();
   }}}]});}
-let chinaMapChart=null;
 function renderChinaMap(d){
-  const dom=document.getElementById('chinaMap');dom.innerHTML='';
-  if(chinaMapChart)chinaMapChart.dispose();
-  const regionG={东北:0.47,华北:0.53,西北:0.55,西南:0.51,华中:0.54,华东:0.50,华南:0.52,港澳台:0.48};
-  const provToRegion={
-    '辽宁':'东北','吉林':'东北','黑龙江':'东北','北京':'华北','天津':'华北','河北':'华北','山西':'华北','内蒙古':'华北','陕西':'西北','甘肃':'西北','青海':'西北','宁夏':'西北','新疆':'西北','四川':'西南','重庆':'西南','贵州':'西南','云南':'西南','西藏':'西南','河南':'华中','湖北':'华中','湖南':'华中','上海':'华东','江苏':'华东','浙江':'华东','安徽':'华东','福建':'华东','江西':'华东','山东':'华东','广东':'华南','广西':'华南','海南':'华南','香港':'港澳台','澳门':'港澳台','台湾':'港澳台'
-  };
-  function initMap(){
-    chinaMapChart=echarts.init(dom);
-    const data=Object.entries(provToRegion).map(([prov,reg])=>({name:prov,value:regionG[reg]}));
-    chinaMapChart.setOption({
-      title:{text:'核心活力效应量（g）· 中国地图',left:'center',top:6,textStyle:{fontSize:14,color:'#333',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
-      tooltip:{trigger:'item',formatter:function(p){return p.name+'<br/>效应量 g = '+(p.value||'?').toString();}},
-      visualMap:{min:0.45,max:0.56,left:'left',bottom:16,text:['g高','g低'],inRange:{color:['#b8d4a8','#7bb3c9','#4a8fb5','#2E75B6']},textStyle:{color:'#555',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'}},
-      series:[{type:'map',map:'china',data:data,label:{show:true,fontSize:8,color:'#444',fontFamily:'PingFang SC,Microsoft YaHei,sans-serif'},itemStyle:{borderColor:'#fff',borderWidth:1},emphasis:{label:{fontSize:11,fontWeight:'bold'},itemStyle:{areaColor:'#ffc285'}}}]
-    });
-  }
-  fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json').then(r=>r.json()).then(geo=>{
-    echarts.registerMap('china',geo);initMap();
-  }).catch(()=>{
-    // Fallback: use built-in simplified map
-    fetch('https://cdn.jsdelivr.net/npm/echarts@5.5.0/map/json/china.json').then(r=>r.json()).then(geo2=>{
-      echarts.registerMap('china',geo2);initMap();
-    }).catch(()=>{dom.innerHTML='<p style=\"text-align:center;padding:40px;color:#999\">地图加载中，请刷新页面重试</p>';});
-  });
-  window.addEventListener('resize',()=>chinaMapChart&&chinaMapChart.resize());
+  const gMap={东北:0.47,华北:0.53,西北:0.55,西南:0.51,华中:0.54,华东:0.50,华南:0.52,港澳台:0.48};
+  const nMap={东北:'n=201',华北:'n=717',西北:'n=223',西南:'n=645',华中:'n=510',华东:'n=1625',华南:'n=666',港澳台:'n=44'};
+  function clr(g){const t=(g-0.45)/0.11;const r=Math.round(46+209*t),g2=Math.round(117-40*t),b=Math.round(182-60*t);return`rgb(${r},${g2},${b})`;}
+  const svg=`<svg viewBox=\"0 0 700 580\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:100%;max-width:620px\">
+  <rect width=\"700\" height=\"580\" fill=\"#f8fafc\" rx=\"8\"/>
+  <g transform=\"translate(0,0)\">
+    <path d=\"M60,30 L300,30 L310,170 L280,210 L60,200Z\" fill=\"${clr(0.55)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"175\" y=\"105\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">西北</text><text x=\"175\" y=\"127\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.55 · n=223</text>
+    <path d=\"M305,20 L480,20 L490,170 L310,175Z\" fill=\"${clr(0.53)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"395\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">华北</text><text x=\"395\" y=\"112\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.53 · n=717</text>
+    <path d=\"M490,10 L660,10 L650,150 L490,175Z\" fill=\"${clr(0.47)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"570\" y=\"85\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">东北</text><text x=\"570\" y=\"107\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.47 · n=201</text>
+    <path d=\"M460,180 L660,180 L650,340 L460,350Z\" fill=\"${clr(0.50)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"555\" y=\"255\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">华东</text><text x=\"555\" y=\"277\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.50 · n=1625</text>
+    <path d=\"M310,180 L455,180 L460,280 L310,290Z\" fill=\"${clr(0.54)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"383\" y=\"225\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">华中</text><text x=\"383\" y=\"247\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.54 · n=510</text>
+    <path d=\"M100,210 L305,210 L310,400 L100,410Z\" fill=\"${clr(0.51)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"205\" y=\"300\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">西南</text><text x=\"205\" y=\"322\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.51 · n=645</text>
+    <path d=\"M315,295 L455,295 L460,430 L315,440Z\" fill=\"${clr(0.52)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"385\" y=\"358\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"700\" fill=\"#fff\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">华南</text><text x=\"385\" y=\"380\" text-anchor=\"middle\" font-size=\"12\" fill=\"rgba(255,255,255,0.9)\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.52 · n=666</text>
+    <path d=\"M455,445 L560,445 L565,510 L455,515Z\" fill=\"${clr(0.48)}\" stroke=\"#fff\" stroke-width=\"2.5\"/>
+    <text x=\"510\" y=\"475\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"700\" fill=\"#555\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">港澳台</text><text x=\"510\" y=\"495\" text-anchor=\"middle\" font-size=\"11\" fill=\"#777\" font-family=\"PingFang SC,Microsoft YaHei,sans-serif\">g=0.48 · n=44</text>
+  </g></svg>`;
+  document.getElementById('chinaMap').innerHTML=svg;
 }
 function renderMatrix(){
   const dims=['性别','沿海/内陆','城市层级','学校层级','年级','本专科','区域'];
