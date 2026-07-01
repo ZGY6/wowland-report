@@ -293,36 +293,6 @@ function updateGroupChart(){const k=document.getElementById('demoSelect').value,
       {label:'6月后测',data:postVals,backgroundColor:'#1565c0',barPercentage:.6,categoryPercentage:.8}
     ]},options:{responsive:true,indexAxis:'y',plugins:{legend:{position:'top'},title:{display:true,text:'前后测绝对分数对比（0-100）',font:{size:11},color:'#555'}},scales:{x:{min:xMin,max:xMax,title:{display:true,text:'0-100 标准化分数'}}}}});}}
 function renderForestHTML(d){
-  const subs=d.subgroups;const gs=subs.map(s=>s.g);const allG=gs.concat([0]);const gMin=Math.min(...allG)-.05,gMax=Math.max(...allG)+.1;const range=gMax-gMin;
-  function xPct(g){return ((g-gMin)/range*100).toFixed(1);}
-  let h='<div style="position:relative;padding:10px 0;font-size:13px">';
-  // Zero line
-  h+=`<div style="position:absolute;left:${xPct(0)}%;top:0;bottom:0;border-left:1.5px dashed #c06060;z-index:0"></div>`;
-  // Reference lines
-  [0.2,0.5,0.8].forEach(v=>{if(v>gMin&&v<gMax)h+=`<div style="position:absolute;left:${xPct(v)}%;top:0;bottom:0;border-left:1px dotted #ddd;z-index:0"></div>`;});
-  // Rows
-  subs.forEach((s,i)=>{
-    const l=xPct(s.lo),r=xPct(s.hi),m=xPct(s.g),isNeg=s.g<0.1,clr=isNeg?'#90caf9':'#1565c0';
-    h+=`<div style="display:flex;align-items:center;height:32px;margin:2px 0;position:relative;z-index:1">`;
-    h+=`<div style="width:100px;text-align:right;padding-right:10px;font-weight:600;font-size:12px;color:#333;flex-shrink:0">${s.name}</div>`;
-    h+=`<div style="flex:1;position:relative;height:100%">`;
-    // CI line
-    h+=`<div style="position:absolute;left:${l}%;right:${100-r}%;top:50%;height:2px;background:${clr};opacity:.5;transform:translateY(-1px)"></div>`;
-    // Point
-    h+=`<div style="position:absolute;left:${m}%;top:50%;width:10px;height:10px;background:${clr};transform:translate(-50%,-50%);border:2px solid #fff;box-shadow:0 0 0 1px ${clr}"></div>`;
-    h+=`</div>`;
-    h+=`<div style="width:160px;padding-left:10px;font-size:11px;color:#555;flex-shrink:0">g=${s.g.toFixed(3)} [${s.lo.toFixed(2)}, ${s.hi.toFixed(2)}]</div>`;
-    h+=`</div>`;
-  });
-  // X-axis labels
-  h+=`<div style="display:flex;padding-left:100px;margin-top:8px;font-size:10px;color:#999;position:relative">`;
-  [gMin,gMin+range/4,gMin+range/2,gMin+range*3/4,gMax].forEach(v=>{
-    if(v>=gMin&&v<=gMax)h+=`<div style="position:absolute;left:${xPct(v)}%;transform:translateX(-50%)">${v.toFixed(1)}</div>`;
-  });
-  h+=`<div style="position:absolute;left:${xPct(0)}%;transform:translateX(-50%);color:#c06060;font-weight:600">0</div>`;
-  h+=`</div></div>`;
-  document.getElementById('groupChartBox').innerHTML='<h4 id="groupChartTitle">效应量森林图 · '+d.label+'</h4>'+h;}
-function renderForestHTML(d){
   var subs=d.subgroups,gs=subs.map(function(s){return s.g}),allG=gs.concat([0]),gMin=Math.min.apply(null,allG)-.05,gMax=Math.max.apply(null,allG)+.1,range=gMax-gMin;
   function xPct(g){return ((g-gMin)/range*100).toFixed(1);}
   var h='<div style="position:relative;padding:10px 0;font-size:13px">';
