@@ -46,15 +46,15 @@ a{color:#1565c0;text-decoration:none}
 .exhibition-header{text-align:center;margin-bottom:36px}
 .exhibition-header h2{font-size:28px;color:#1a3a5c;font-weight:900}
 .exhibition-header p{font-size:14px;color:#888;margin-top:6px}
-.exhibition-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
-.exhibit-card{background:#fff;border-radius:12px;padding:24px 28px;box-shadow:0 2px 16px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.04);transition:.2s;cursor:pointer;text-decoration:none;color:inherit;display:block}
-.exhibit-card:hover{box-shadow:0 6px 24px rgba(21,101,192,.12);border-color:rgba(21,101,192,.15);transform:translateY(-2px)}
-.exhibit-card.featured{grid-row:span 4;display:flex;flex-direction:column;justify-content:center}
-.exhibit-card .idx{font-size:13px;font-weight:700;color:#1565c0;margin-bottom:4px;letter-spacing:1px}
-.exhibit-card h3{font-size:18px;font-weight:700;color:#1a3a5c;margin-bottom:6px}
-.exhibit-card .card-desc{font-size:13px;color:#777;line-height:1.6}
-.exhibit-card.featured h3{font-size:24px}
-.exhibit-card.featured .big-num{font-size:52px;font-weight:900;color:#1565c0;line-height:1.1;margin:12px 0 4px}
+.exhibition-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.exhibit-card{background:#fff;border-radius:10px;padding:18px 16px;box-shadow:0 1px 8px rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.04);transition:.2s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.exhibit-card:hover{box-shadow:0 4px 16px rgba(21,101,192,.12);border-color:rgba(21,101,192,.15);transform:translateY(-1px)}
+.exhibit-card.featured{grid-column:span 2;grid-row:span 1;display:flex;align-items:center;gap:24px}
+.exhibit-card .idx{font-size:11px;font-weight:700;color:#1565c0;margin-bottom:2px;letter-spacing:1px}
+.exhibit-card h3{font-size:14px;font-weight:700;color:#1a3a5c;margin-bottom:2px}
+.exhibit-card .card-desc{font-size:12px;color:#999;line-height:1.5}
+.exhibit-card.featured h3{font-size:20px}
+.exhibit-card.featured .big-num{font-size:38px;font-weight:900;color:#1565c0;line-height:1;white-space:nowrap}
 
 /* === Content Sections === */
 .content-wrap{max-width:1100px;margin:0 auto;padding:0 6% 60px}
@@ -108,7 +108,7 @@ footer a{color:#1565c0}
 <nav class="navbar"><div class="navbar-inner">
   <div class="logo">抖音校园 <span>WowLand</span> · 敢聊行动报告</div>
   <div class="nav-links">
-    <a href="#team">研究团队</a><a href="#exhibition">报告导航</a><a href="#content">正文</a><a href="#s12">核心洞察</a>
+    <a href="#team">研究团队</a><a href="#content">报告正文</a><a href="#s12">核心洞察</a>
     <a class="dl-btn" href="WowLand调研完整报告_终版.docx" download>📥 下载完整报告</a>
   </div>
 </div></nav>
@@ -134,31 +134,28 @@ footer a{color:#1565c0}
   </div>
 </section>
 
-<!-- ====== EXHIBITION CARDS: 报告导航 ====== -->
-<section class="exhibition" id="exhibition">
-  <div class="exhibition-header"><h2>报告导航</h2><p>点击卡片跳转到对应章节</p></div>
-  <div class="exhibition-grid">
-    <a href="#s01" class="exhibit-card featured">
-      <span class="idx">01</span><h3>概览与核心发现</h3>
-      <div class="big-num">+7.9<span style="font-size:22px;font-weight:600"> 分</span></div>
-      <p class="card-desc">核心成长活力提升，g = 0.526，同类干预的 2-3 倍。所有人群普适。触达率 83.2%，首参效应 8.9 分。</p>
-    </a>
-    <a href="#s02" class="exhibit-card"><span class="idx">02</span><h3>研究背景与设计</h3><p class="card-desc">撞→见→觉→固四阶段模型，重复横断面设计，GHQ-12 + VFI + 成长型思维三量表。</p></a>
-    <a href="#s03" class="exhibit-card"><span class="idx">03</span><h3>描述统计</h3><p class="card-desc">7维度人口学分布，N=4,631，变量编码字典。</p></a>
-    <a href="#s04" class="exhibit-card"><span class="idx">04</span><h3>信度与效度分析</h3><p class="card-desc">VFI拆分为核心活力(α=.931)和心理保护(α=.810)，构念纯度大幅提升。</p></a>
-    <a href="#s05" class="exhibit-card"><span class="idx">05</span><h3>前后测差异</h3><p class="card-desc">核心指标对比 + VFI 总—分结构 + 四维度效应量排名。</p></a>
-    <a href="#s06" class="exhibit-card"><span class="idx">06</span><h3>相关分析</h3><p class="card-desc">结果变量间 5×5 相关矩阵 + 人口学与结果的相关。</p></a>
-    <a href="#s07" class="exhibit-card"><span class="idx">07</span><h3>群体差异</h3><p class="card-desc">7维度森林图 + 汇总矩阵 + 中国地图热力，全部交互不显著。</p></a>
-    <a href="#s08" class="exhibit-card"><span class="idx">08</span><h3>题项级分析</h3><p class="card-desc">15道VFI题效应量排序，社交和认知类题目稳居前五。</p></a>
-    <a href="#s09" class="exhibit-card"><span class="idx">09</span><h3>参与深度</h3><p class="card-desc">首参效应 + 线上 vs 线下 + 深度参与的U型曲线。</p></a>
-    <a href="#s10" class="exhibit-card"><span class="idx">10</span><h3>风险与局限</h3><p class="card-desc">优先干预群体 + 方法边界说明。</p></a>
-    <a href="#s11" class="exhibit-card"><span class="idx">11</span><h3>行动建议</h3><p class="card-desc">6条具体策略：社交优先、降低门槛、线上触达、深度收尾。</p></a>
-    <a href="#s12" class="exhibit-card"><span class="idx">12</span><h3>核心洞察</h3><p class="card-desc">社交突破 = 核心资产，许可结构 = 核心机制，17% = 核心挑战。</p></a>
-  </div>
-</section>
+<!-- ====== CONTENT: 12章正文 + 卡片导航带 ====== -->
+<div class="content-wrap" id="content" style="padding-top:0">
+<div style="text-align:center;padding:36px 0 20px"><h2 style="font-size:22px;color:#1a3a5c">报告正文</h2><p style="font-size:13px;color:#999">点击卡片直达章节</p></div>
+<div class="exhibition-grid" style="max-width:1100px;margin:0 auto 40px">
+  <a href="#s01" class="exhibit-card featured">
+    <div class="big-num">+7.9<span style="font-size:16px;font-weight:600"> 分</span></div>
+    <div><span class="idx">01</span><h3>概览</h3><p class="card-desc">核心发现：g=0.526，2-3倍同类，全人群普适</p></div>
+  </a>
+  <a href="#s02" class="exhibit-card"><span class="idx">02</span><h3>研究背景</h3><p class="card-desc">撞→见→觉→固</p></a>
+  <a href="#s03" class="exhibit-card"><span class="idx">03</span><h3>描述统计</h3><p class="card-desc">7维度分布</p></a>
+  <a href="#s04" class="exhibit-card"><span class="idx">04</span><h3>信效度</h3><p class="card-desc">VFI拆分 α=.931</p></a>
+  <a href="#s05" class="exhibit-card"><span class="idx">05</span><h3>前后测差异</h3><p class="card-desc">核心指标对比</p></a>
+  <a href="#s06" class="exhibit-card"><span class="idx">06</span><h3>相关分析</h3><p class="card-desc">5×5 相关矩阵</p></a>
+  <a href="#s07" class="exhibit-card"><span class="idx">07</span><h3>群体差异</h3><p class="card-desc">森林图+地图</p></a>
+  <a href="#s08" class="exhibit-card"><span class="idx">08</span><h3>题项分析</h3><p class="card-desc">15题效应量</p></a>
+  <a href="#s09" class="exhibit-card"><span class="idx">09</span><h3>参与深度</h3><p class="card-desc">首参效应</p></a>
+  <a href="#s10" class="exhibit-card"><span class="idx">10</span><h3>风险局限</h3><p class="card-desc">优先群体</p></a>
+  <a href="#s11" class="exhibit-card"><span class="idx">11</span><h3>行动建议</h3><p class="card-desc">6条策略</p></a>
+  <a href="#s12" class="exhibit-card"><span class="idx">12</span><h3>核心洞察</h3><p class="card-desc">许可结构</p></a>
+</div>
 
 <!-- ====== CONTENT ====== -->
-<div class="content-wrap" id="content">
 
 <div class="content-sec" id="s01"><div class="sec-label">01</div><h2>概览与核心发现</h2>
 <p>本报告评估了抖音校园 WowLand「敢聊行动」（2026年4–6月）对学生成长状态的影响。基于4月前测（2,539人）和6月后测（2,092人）两波匿名问卷数据，追踪了心理健康、成长活力和成长型思维三个核心指标的变化。</p>
