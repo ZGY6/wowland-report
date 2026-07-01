@@ -26,15 +26,16 @@ a{color:#1565c0;text-decoration:none}
 .home h2{font-size:24px;color:#1a3a5c;text-align:center;margin-bottom:6px}
 .home .hsub{font-size:13px;color:#999;text-align:center;margin-bottom:36px}
 .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;perspective:1000px}
-.card{background:#fff;border-radius:12px;padding:22px 18px;box-shadow:0 1px 8px rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.04);cursor:pointer;transition:all .3s cubic-bezier(.22,.61,.36,1);text-align:center;animation:cardIn .5s both}
+.card{background:#fff;border-radius:8px;padding:22px 18px;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.06),0 6px 16px rgba(0,0,0,.04);cursor:pointer;transition:all .3s cubic-bezier(.22,.61,.36,1);text-align:center;animation:cardIn .5s both;border:2px solid transparent}
 .card:nth-child(1){animation-delay:.05s}.card:nth-child(2){animation-delay:.1s}.card:nth-child(3){animation-delay:.15s}.card:nth-child(4){animation-delay:.2s}.card:nth-child(5){animation-delay:.25s}.card:nth-child(6){animation-delay:.3s}.card:nth-child(7){animation-delay:.35s}.card:nth-child(8){animation-delay:.4s}.card:nth-child(9){animation-delay:.45s}.card:nth-child(10){animation-delay:.5s}.card:nth-child(11){animation-delay:.55s}.card:nth-child(12){animation-delay:.6s}.card:nth-child(13){animation-delay:.65s}
-@keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.card:hover{box-shadow:0 8px 28px rgba(21,101,192,.18);transform:translateY(-4px) scale(1.02);border-color:rgba(21,101,192,.3)}
-.card:active{transform:scale(.97)}
+@keyframes cardIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.card:hover{box-shadow:0 0 0 2px rgba(21,101,192,.25),0 4px 8px rgba(0,0,0,.08),0 12px 28px rgba(21,101,192,.12);transform:translateY(-3px);border-color:#1565c0}
+.card:active{transform:scale(.97);box-shadow:0 0 0 2px rgba(21,101,192,.4),0 1px 2px rgba(0,0,0,.1)}
 .card .idx{font-size:11px;font-weight:700;color:#1565c0;letter-spacing:1px;margin-bottom:4px}
 .card h3{font-size:15px;font-weight:700;color:#1a3a5c;margin-bottom:2px}
-.card .sub{font-size:12px;color:#aaa}
-.card.featured{grid-column:span 2;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;text-align:left;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden}
+.card .sub{font-size:12px;color:#888}
+.card.featured{grid-column:span 2;background:linear-gradient(135deg,#1565c0,#0d47a1);color:#fff;text-align:left;display:flex;align-items:center;gap:28px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.1),0 4px 8px rgba(0,0,0,.12),0 12px 24px rgba(21,101,192,.25)}
+.card.featured:hover{box-shadow:0 0 0 2px rgba(255,255,255,.3),0 6px 12px rgba(0,0,0,.15),0 16px 36px rgba(21,101,192,.35)}
 .card.featured::after{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:rgba(255,255,255,.06);border-radius:50%;transition:.4s}
 .card.featured:hover::after{transform:scale(1.5)}
 .card.featured .idx,.card.featured h3,.card.featured .sub{color:#fff;position:relative;z-index:1}
@@ -78,6 +79,10 @@ a{color:#1565c0;text-decoration:none}
 .action-card h4{font-size:15px;color:#1565c0;margin-bottom:6px}.action-card p{font-size:13px;color:#555}
 .action-card .tag{display:inline-block;background:#e8f0fa;color:#1565c0;padding:3px 8px;border-radius:10px;font-size:11px;margin-right:5px;margin-top:6px}
 footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;border-top:1px solid #eee}
+.nav-row{display:flex;justify-content:space-between;margin-top:32px;padding-top:20px;border-top:1px solid #e8e8e8}
+.nav-row button{padding:10px 22px;border:2px solid #d0d0d0;background:#fff;border-radius:8px;font-size:14px;cursor:pointer;transition:.2s;font-weight:600;color:#555;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.nav-row button:hover{border-color:#1565c0;color:#1565c0;box-shadow:0 2px 8px rgba(21,101,192,.12)}
+.nav-row button:disabled{opacity:.3;cursor:default}
 @media(max-width:768px){.card-grid{grid-template-columns:1fr 1fr}.card.featured{grid-column:span 2}.team-grid{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.action-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -225,12 +230,44 @@ footer{text-align:center;padding:24px;font-size:12px;color:#999;background:#fff;
 
 <script>
 Chart.defaults.font.family="'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif";Chart.defaults.font.size=12;
-function openPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');window.scrollTo(0,0);
+const pageOrder=['home','overview','team','bg','desc','reliability','pretest','corr','groups','items','participation','risk','actions','insights'];
+const detailPages=pageOrder.filter(p=>p!=='home');
+function openPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('page-'+id);
+  if(!target){openPage('home');return;}
+  target.classList.add('active');window.scrollTo(0,0);
+  history.replaceState(null,'','#'+id);
+  // Lazy charts
   if(id==='groups')setTimeout(updateGroupChart,200);if(id==='items')setTimeout(()=>renderItems('all'),200);
   if(id==='pretest'){setTimeout(()=>{initCoreChart();initVfiChart();},200);}
   if(id==='participation'){setTimeout(()=>{initDoseChart();initSeenChart();},200);}
   if(id==='corr'){setTimeout(initCorrTable,100);}
+  // Add nav row to detail pages
+  addNavRow(id);
 }
+function addNavRow(id){
+  const idx=detailPages.indexOf(id);if(idx<0)return;
+  const page=document.getElementById('page-'+id);
+  let existing=page.querySelector('.nav-row');if(existing)existing.remove();
+  const prev=idx>0?detailPages[idx-1]:null;const next=idx<detailPages.length-1?detailPages[idx+1]:null;
+  const pageNames={overview:'概览',team:'研究团队',bg:'研究背景',desc:'描述统计',reliability:'信度与效度',pretest:'前后测差异',corr:'相关分析',groups:'群体差异',items:'题项分析',participation:'参与深度',risk:'风险与局限',actions:'行动建议',insights:'核心洞察'};
+  const row=document.createElement('div');row.className='nav-row';
+  row.innerHTML=(prev?`<button onclick="openPage('${prev}')">← ${pageNames[prev]}</button>`:'<span></span>')+(next?`<button onclick="openPage('${next}')">${pageNames[next]} →</button>`:'<span></span>');
+  page.appendChild(row);
+}
+// Keyboard
+document.addEventListener('keydown',e=>{
+  const cur=detailPages.find(p=>document.getElementById('page-'+p).classList.contains('active'));
+  if(!cur)return;
+  const idx=detailPages.indexOf(cur);
+  if(e.key==='ArrowRight'&&idx<detailPages.length-1)openPage(detailPages[idx+1]);
+  if(e.key==='ArrowLeft'&&idx>0)openPage(detailPages[idx-1]);
+  if(e.key==='Escape')openPage('home');
+});
+// Hash routing on load
+const hash=window.location.hash.replace('#','');
+if(hash&&document.getElementById('page-'+hash))openPage(hash);
 
 // Lazy chart init
 function initCoreChart(){new Chart(document.getElementById('chartCore'),{type:'bar',data:{labels:['心理困扰','核心成长活力','成长型思维'],datasets:[{label:'4月前测',data:[69.0,74.3,63.2],backgroundColor:'#90caf9'},{label:'6月后测',data:[70.2,82.2,63.0],backgroundColor:'#1565c0'}]},options:{responsive:true,plugins:{title:{display:true,text:'g=0.074 / 0.526*** / -0.013',font:{size:11},color:'#555'}},scales:{y:{beginAtZero:true,max:95}}}});}
